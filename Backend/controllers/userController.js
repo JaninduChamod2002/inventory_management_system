@@ -1,14 +1,15 @@
 const asyncHandler = require("express-async-handler") ;
 const User = require("../models/userModel");
+const bcrypt = require("bcryptjs");
 
 
 const registerUser = asyncHandler( async (req, res) => {
    
-    const {firstName , email , password} = req.body;
+    const {firstName ,lasttName ,  email , role ,  password , passwordConfirm } = req.body;
 
     //validation
 
-    if(!firstName || !email || !password){
+    if(!firstName || !email || !password || !passwordConfirm){
         res.status(400);
         throw new Error("Please fill all the fields")
     }
@@ -26,21 +27,27 @@ const registerUser = asyncHandler( async (req, res) => {
 
 
     }
+    //encrypt password before saving database
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+
     //create new user
 
-    const user = await User.create({ firstName , email, password})
+    const user = await User.create({ firstName , lasttName , email, role,  password :hashedPassword ,passwordConfirm  })
 
     if (user){
-        const{_id ,firstName ,lasttName , email, role , password , passwordConfirm , active} = user 
+        const{_id ,firstName ,lasttName , email, role ,  active} = user 
         res.status(201).json({
             _id ,
             firstName ,
             lasttName , 
             email, 
             role , 
-            password , 
-            passwordConfirm , 
-            active
+            password,
+            passwordConfirm,
+            active,
             
         })
     }
