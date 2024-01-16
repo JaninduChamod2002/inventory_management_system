@@ -61,3 +61,6 @@ exports.login = catchAsync(async (req, res, next) => {
     token,
   });
 });
+module.exports = {
+  registerUser,
+}
