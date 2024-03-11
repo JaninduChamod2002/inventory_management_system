@@ -12,6 +12,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, "A user must have a last name"],
   },
+  username: {
+    type: String,
+    required: [true, "A user must have a last name"],
+  },
   email: {
     type: String,
     unique: true,
@@ -31,14 +35,9 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
   passwordConfirm: {
-    type: String,
+    type: String,  
     required: [true, "A user must have a password comfirm"],
-    validate: {
-      validator: function (el) {
-        return el === this.password;
-      },
-      message: "Passwords are not same",
-    },
+    
   },
   active: {
     type: Boolean,
