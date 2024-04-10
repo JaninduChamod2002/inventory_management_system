@@ -67,7 +67,15 @@ const getOnePurchase = async (req, res) => {
 
 const deletePurchase = async (req, res) => {
     try {
-        await Purchase.findByIdAndDelete(req.params.id);
+        const deletedOrder = await Purchase.findOneAndDelete({ orderID: req.params.id });
+
+        if (!deletedOrder) {
+            return res.status(404).send({
+                success: false,
+                message: "Purchase order not found"
+            });
+        }
+
         res.status(200).send({
             success: true,
             message: "Purchase order deleted successfully"
@@ -82,12 +90,13 @@ const deletePurchase = async (req, res) => {
     }
 };
 
+
 const updatePurchase = async (req, res) => {
     try {
-        const { orderID, orderDate, supplier, products, totalAmount, status } = req.body;
-        const update = { orderID, orderDate, supplier, products, totalAmount, status };
+        const { orderID, orderDate, supplier, Items, totalAmount, status } = req.body;
+        const update = { orderDate, supplier, Items, totalAmount, status };
         
-        await Purchase.findByIdAndUpdate(req.params.id, update);
+        await Purchase.findOneAndUpdate({ orderID: req.params.id }, update);
         res.status(200).send({
             success: true,
             message: "Purchase order updated successfully"
@@ -102,6 +111,8 @@ const updatePurchase = async (req, res) => {
     }
 };
 
+
 module.exports = { newPurchaseController, getAllPurchases, getOnePurchase, deletePurchase, updatePurchase };
+
 
 
