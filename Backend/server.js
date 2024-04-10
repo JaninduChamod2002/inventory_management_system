@@ -7,6 +7,7 @@ const cors = require("cors");
 const userRoute = require("./routes/userRoute");
 const categoryRoute = require("./routes/categoryRoute");
 const itemRoute = require("./routes/itemRoute");
+const purchaseRoute = require("./routes/purchaseRoute");
 
 const errorHandler = require("./middleware/errorMiddleware");
 const posRoute = require("./routes/posRoute");
@@ -32,6 +33,7 @@ app.use("/", posRoute);
 app.use("/api/users", userRoute);
 app.use("/api/category", categoryRoute);
 app.use("/api/items", itemRoute);
+app.use("/api/order",purchaseRoute);
 
 
 // Routes
