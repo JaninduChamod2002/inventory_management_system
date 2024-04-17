@@ -15,7 +15,6 @@ const PORT =process.env.PORT || 9000;
 
 
 // Middleware
-
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
