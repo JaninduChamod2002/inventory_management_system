@@ -18,7 +18,6 @@ const PORT = process.env.PORT || 8090;
 dotenv.config({ path: "./config.env" });
 
 // Middleware
-
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
