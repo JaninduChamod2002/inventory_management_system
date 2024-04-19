@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const employeeSchema = new mongoose.Schema({
+const employeeSchema =  mongoose.Schema({
   EmpID: {
     type: String,
     required: true,
@@ -33,4 +33,4 @@ const employeeSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('Employee', employeeSchema);
+export const Employee = mongoose.model('Employee', employeeSchema);

@@ -1,45 +1,46 @@
-const dotenv = require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+import dotenv from 'dotenv';
+dotenv.config();
 
-const userRoute = require("./routes/userRoute");
-const errorHandler = require("./middleware/errorMiddleware");
-const cookieParser = require("cookie-parser");
-const path = require("path");
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+//import errorHandler from "./middleware/errorMiddleware.js";
+// import cookieParser from "cookie-parser";
+import EmployeeRoute from './routes/EmployeeRoute.js';
+import employeeAttendanceRoute from './routes/employeeAttendanceRoute.js';
 
 const app = express();
 
-const PORT =process.env.PORT || 9000;
-
+const PORT = process.env.PORT || 9000;
 
 // Middleware
 app.use(express.json());
-app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors({origin: ["http://localhost:9000", "https://inventory-management-system.vercel.app"],
-credentials: true,
+app.use(cors({
+  origin: ["http://localhost:9000", "https://inventory-management-system.vercel.app"],
+  credentials: true,
 }));
 
 // Routes middlewares
-app.use("/api/users", userRoute);
+app.use('/employees', EmployeeRoute);
+app.use('/attendants', employeeAttendanceRoute);
 
 // Routes 
-app.get("/", (req, res ) => {res.send("Home Page");
-  });
-// error middleware 
+app.get("/", (req, res) => {
+  res.send("Home Page");
+});
 
-app.use(errorHandler);
+// Error middleware 
+// app.use(errorHandler);
 
-// connect to DB and start server
+// Connect to DB and start server
 mongoose
-    .connect(process.env.MONGO_URI)
-    .then(() => {
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
     });
-    })
-    
-    .catch((err) => console.log(err));
+  })
+  .catch((err) => console.log(err));
