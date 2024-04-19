@@ -1,5 +1,5 @@
-const express = require('express');
-const EmployeeAttendence = require('..//models/employeeAttendance.js');
+import express from 'express';
+import { EmployeeAttendence } from '../models/employeeAttendance.js';
 
 const router = express.Router();
 
@@ -7,7 +7,7 @@ const router = express.Router();
 router.post('/', async (request, response) => {
   try {
     if (
-      !request.body.ID ||
+      !request.body.EmpID ||
       !request.body.employeeName ||
       !request.body.date 
       //!request.body.InTime ||
@@ -20,7 +20,7 @@ router.post('/', async (request, response) => {
       });
     }
     const newEmployeeAttendence = {
-      EmpID: request.body.ID,
+      EmpID: request.body.EmpID,
       employeeName: request.body.employeeName,
       date: request.body.date,
       InTime: request.body.InTime || null,  // Set to null if not provided
@@ -93,8 +93,8 @@ router.put('/:id', async (request, response) => {
     }
 
     // Update only the fields that are provided in the request body
-    if (request.body.ID) {
-      existingAttendance.ID = request.body.ID;
+    if (request.body.EmpID) {
+      existingAttendance.EmpID = request.body.EmpID;
     }
     if (request.body.employeeName) {
       existingAttendance.employeeName = request.body.employeeName;
@@ -217,4 +217,4 @@ router.get("/searchEmployeeAttendence", async (req, res) => {
 });
 
 
-module.exports = router;
+export default router;

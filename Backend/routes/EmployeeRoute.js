@@ -1,167 +1,146 @@
-const express = require('express');
-const  {Employee}  = require('../Models/Employee.js');
+import express from 'express';
+import { Employee } from '../models/Employee.js';
+
 
 const router = express.Router();
 
-// Route for Save a new Employee
+// Route for saving a new Employee
 router.post('/', async (request, response) => {
   try {
-    if (
-      !request.body.EmpID ||
-      !request.body.employeeName ||
-      !request.body.phone ||
-      !request.body.role ||
-      !request.body.password ||
-      !request.body.passwordConfirm
-
-    ) {
+    const { EmpID, employeeName, phone, role, password, passwordConfirm } = request.body;
+    if (!EmpID || !employeeName || !phone || !role || !password || !passwordConfirm) {
       return response.status(400).send({
-        message: 'Send all required fields: EmpID, employeeName, DOB, NIC, Address, Position, ContactNo,Email',
+        message: 'Send all required fields: EmpID, employeeName, phone, role, password, passwordConfirm',
       });
     }
-    const newEmployee = {
-      EmpID: request.body.EmpID,
-      employeeName: request.body.employeeName,
-      phone: request.body.phone,
-      role: request.body.role,
-      password: request.body.password,
-      passwordConfirm: request.body.passwordConfirm,
-    };
+    if (password !== passwordConfirm) {
+      return response.status(400).send({ message: 'Passwords do not match' });
+    }
 
-    const employee = await Employee.create(newEmployee);
+    const newEmployee = await Employee.create({
+      EmpID,
+      employeeName,
+      phone,
+      role,
+      password,
+      passwordConfirm,
+    });
 
-    return response.status(201).send(employee);
+    return response.status(201).send(newEmployee);
   } catch (error) {
     console.log(error.message);
-    response.status(500).send({ message: error.message });
+    response.status(500).send({ message: 'Internal Server Error' });
   }
 });
 
-// Route for Get All Employees from database
+// Route for getting all Employees from the database
 router.get('/', async (request, response) => {
   try {
     const employees = await Employee.find({});
-
     return response.status(200).json({
       count: employees.length,
       data: employees,
     });
   } catch (error) {
     console.log(error.message);
-    response.status(500).send({ message: error.message });
+    response.status(500).send({ message: 'Internal Server Error' });
   }
 });
 
-// Route for Get One Employee from database by id
+// Route for getting one Employee from the database by id
 router.get('/:id', async (request, response) => {
   try {
     const { id } = request.params;
-
     const employee = await Employee.findById(id);
-
     return response.status(200).json(employee);
   } catch (error) {
     console.log(error.message);
-    response.status(500).send({ message: error.message });
+    response.status(500).send({ message: 'Internal Server Error' });
   }
 });
 
-// Route for Update an employee
+// Route for updating an Employee
 router.put('/:id', async (request, response) => {
   try {
-    if (
-      !request.body.EmpID ||
-      !request.body.employeeName ||
-      !request.body.phone ||
-      !request.body.role ||
-      !request.body.password ||
-      !request.body.passwordConfirm 
-    ) {
+    const { id } = request.params;
+    const { EmpID, employeeName, phone, role, password, passwordConfirm } = request.body;
+    if (!EmpID || !employeeName || !phone || !role || !password || !passwordConfirm) {
       return response.status(400).send({
-        message: 'Send all required fields: EmpID, employeeName, DOB, NIC, Address, Position, Salary',
+        message: 'Send all required fields: EmpID, employeeName, phone, role, password, passwordConfirm',
       });
     }
-
-    const { id } = request.params;
-
-    const result = await Employee.findByIdAndUpdate(id, request.body);
-
-    if (!result) {
+    if (password !== passwordConfirm) {
+      return response.status(400).send({ message: 'Passwords do not match' });
+    }
+    const updatedEmployee = await Employee.findByIdAndUpdate(id, request.body, { new: true });
+    if (!updatedEmployee) {
       return response.status(404).json({ message: 'Employee not found' });
     }
-
     return response.status(200).send({ message: 'Employee updated successfully' });
   } catch (error) {
     console.log(error.message);
-    response.status(500).send({ message: error.message });
+    response.status(500).send({ message: 'Internal Server Error' });
   }
 });
 
-// Route for Delete an employee
+// Route for deleting an Employee
 router.delete('/:id', async (request, response) => {
   try {
     const { id } = request.params;
-
-    const result = await Employee.findByIdAndDelete(id);
-
-    if (!result) {
+    const deletedEmployee = await Employee.findByIdAndDelete(id);
+    if (!deletedEmployee) {
       return response.status(404).json({ message: 'Employee not found' });
     }
-
     return response.status(200).send({ message: 'Employee deleted successfully' });
   } catch (error) {
     console.log(error.message);
-    response.status(500).send({ message: error.message });
+    response.status(500).send({ message: 'Internal Server Error' });
   }
 });
 
-// GET route for retrieving employees based on search criteria, pagination, and sorting
-router.get("/searchEmployee", async (req, res) => {
+// Route for searching employees based on criteria, pagination, and sorting
+router.get('/search', async (req, res) => {
   try {
-    // Destructuring the request query with default values
-    const { page = 1, limit = 8, search = "", sort = "EmpID" } = req.query;
+    const { page = 1, limit = 10, search = '', sort = 'EmpID' } = req.query;
     const skip = (parseInt(page) - 1) * parseInt(limit);
-    // Regular expression for case-insensitive search
     const query = {
       $or: [
-        { EmpID: { $regex: new RegExp(search, 'i') } }, // Using RegExp instead of directly passing $regex
+        { EmpID: { $regex: new RegExp(search, 'i') } },
         { employeeName: { $regex: new RegExp(search, 'i') } },
         { role: { $regex: new RegExp(search, 'i') } },
         { phone: { $regex: new RegExp(search, 'i') } },
-       
       ],
     };
-    // Using await to ensure that sorting and pagination are applied correctly
     const employees = await Employee.find(query)
-      .sort({ [sort]: 1 }) // Sorting based on the specified field
+      .sort({ [sort]: 1 })
       .skip(skip)
       .limit(parseInt(limit));
     res.status(200).json({ count: employees.length, data: employees });
   } catch (err) {
     console.error(err.message);
-    res.status(500).json({ error: true, message: "Internal Server Error" });
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
 // Route for employee Login
-router.post('/eLogin', async (request, response) => {
+router.post('/login', async (request, response) => {
   try {
-      const { phone, password } = request.body;
-      if (!phone || !password) {
-          return response.status(400).json({ message: 'phone and password are required' });
-      }
-      const employee = await Employee.findOne({ phone });
-      if (!employee) {
-          return response.status(404).json({ message: 'User not found' });
-      }
-      if (password !== employee.password) {
-          return response.status(401).json({ message: 'Incorrect password' });
-      }
-      response.status(200).json(employee);
+    const { phone, password } = request.body;
+    if (!phone || !password) {
+      return response.status(400).json({ message: 'Phone and password are required' });
+    }
+    const employee = await Employee.findOne({ phone });
+    if (!employee) {
+      return response.status(404).json({ message: 'User not found' });
+    }
+    if (password !== employee.password) {
+      return response.status(401).json({ message: 'Incorrect password' });
+    }
+    response.status(200).json(employee);
   } catch (error) {
-      console.error(error.message);
-      response.status(500).json({ message: 'Internal Server Error' });
+    console.error(error.message);
+    response.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
-module.exports = router;
+export default router;

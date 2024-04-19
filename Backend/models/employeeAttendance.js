@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const employeeAttendenceSchema = mongoose.Schema(
     {
-    ID: {
+        EmpID: {
         type: String,
         required: true,
     },
