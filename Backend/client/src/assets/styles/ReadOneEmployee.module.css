@@ -1,0 +1,17 @@
+/* ReadOneEmployee.module.css */
+
+.container {
+    padding: 16px;
+    margin: 0 auto;
+  }
+  
+  .form-field {
+    display: flex;
+    align-items: center;
+  }
+  
+  .label {
+    font-weight: 600;
+    margin-right: 8px;
+  }
+  
