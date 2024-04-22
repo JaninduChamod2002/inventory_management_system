@@ -1,10 +1,13 @@
 import express from 'express';
 import { Employee } from '../models/Employee.js';
 
+<<<<<<< HEAD
 const app = express();
 app.use(express.json()); // Add this line to parse JSON bodies
 
 
+=======
+>>>>>>> 049f0438929ae15cf20d439380297b5c2676aa4e
 
 const router = express.Router();
 
@@ -12,7 +15,11 @@ const router = express.Router();
 router.post('/', async (request, response) => {
   try {
     const { EmpID, employeeName, phone, role, password, passwordConfirm } = request.body;
+<<<<<<< HEAD
     if (!EmpID || !employeeName || !phone || !role ) {
+=======
+    if (!EmpID || !employeeName || !phone || !role || !password || !passwordConfirm) {
+>>>>>>> 049f0438929ae15cf20d439380297b5c2676aa4e
       return response.status(400).send({
         message: 'Send all required fields: EmpID, employeeName, phone, role, password, passwordConfirm',
       });
@@ -68,7 +75,11 @@ router.put('/:id', async (request, response) => {
   try {
     const { id } = request.params;
     const { EmpID, employeeName, phone, role, password, passwordConfirm } = request.body;
+<<<<<<< HEAD
     if (!EmpID || !employeeName || !phone || !role ) {
+=======
+    if (!EmpID || !employeeName || !phone || !role || !password || !passwordConfirm) {
+>>>>>>> 049f0438929ae15cf20d439380297b5c2676aa4e
       return response.status(400).send({
         message: 'Send all required fields: EmpID, employeeName, phone, role, password, passwordConfirm',
       });

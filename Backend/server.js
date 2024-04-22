@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Import required modules
 import dotenv from 'dotenv';
 dotenv.config();// Load environment variables from a .env file
@@ -13,6 +14,19 @@ import employeeAttendanceRoute from './routes/employeeAttendanceRoute.js';
 ///import itemRoute from './routes/itemRoute.js';
 // import errorHandler from './middleware/errorMiddleware.js';
 //import posRoute from './routes/posRoute.js';
+=======
+import dotenv from 'dotenv';
+dotenv.config();
+
+import express from 'express';
+import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+//import errorHandler from "./middleware/errorMiddleware.js";
+// import cookieParser from "cookie-parser";
+import EmployeeRoute from './routes/EmployeeRoute.js';
+import employeeAttendanceRoute from './routes/employeeAttendanceRoute.js';
+>>>>>>> 049f0438929ae15cf20d439380297b5c2676aa4e
 
 // Initialize Express app
 const app = express();
@@ -20,6 +34,7 @@ app.use(cors({ origin: 'http://localhost:5173' }));
 // Define port
 const PORT = process.env.PORT || 8090; // Default port or port defined in environment variable
 
+<<<<<<< HEAD
 // Load environment variables from config file
 //dotenv.config({path: "./config.env" });
 
@@ -55,3 +70,37 @@ mongoose
     });
   })
   .catch((err) => console.log(err)); // Log any errors during database connection
+=======
+const PORT = process.env.PORT || 9000;
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cors({
+  origin: ["http://localhost:9000", "https://inventory-management-system.vercel.app"],
+  credentials: true,
+}));
+
+// Routes middlewares
+app.use('/employees', EmployeeRoute);
+app.use('/attendants', employeeAttendanceRoute);
+
+// Routes 
+app.get("/", (req, res) => {
+  res.send("Home Page");
+});
+
+// Error middleware 
+// app.use(errorHandler);
+
+// Connect to DB and start server
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((err) => console.log(err));
+>>>>>>> 049f0438929ae15cf20d439380297b5c2676aa4e
