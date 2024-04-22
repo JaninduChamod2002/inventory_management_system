@@ -1,6 +1,10 @@
 import express from 'express';
 import { Employee } from '../models/Employee.js';
 
+const app = express();
+app.use(express.json()); // Add this line to parse JSON bodies
+
+
 
 const router = express.Router();
 
@@ -8,7 +12,7 @@ const router = express.Router();
 router.post('/', async (request, response) => {
   try {
     const { EmpID, employeeName, phone, role, password, passwordConfirm } = request.body;
-    if (!EmpID || !employeeName || !phone || !role || !password || !passwordConfirm) {
+    if (!EmpID || !employeeName || !phone || !role ) {
       return response.status(400).send({
         message: 'Send all required fields: EmpID, employeeName, phone, role, password, passwordConfirm',
       });
@@ -64,7 +68,7 @@ router.put('/:id', async (request, response) => {
   try {
     const { id } = request.params;
     const { EmpID, employeeName, phone, role, password, passwordConfirm } = request.body;
-    if (!EmpID || !employeeName || !phone || !role || !password || !passwordConfirm) {
+    if (!EmpID || !employeeName || !phone || !role ) {
       return response.status(400).send({
         message: 'Send all required fields: EmpID, employeeName, phone, role, password, passwordConfirm',
       });

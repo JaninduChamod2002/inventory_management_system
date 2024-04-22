@@ -18,17 +18,17 @@ const employeeSchema =  mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["admin", "manager", "cashier", "biller"],
-    default: "employee",
+    enum: ["Admin", "Manager", "Cashier", "Biller"],
+    default: "Biller",
   },
   password: {
     type: String,
-    required: [true, "A user must have a password"],
+   
    
   },
   passwordConfirm: {
     type: String,
-    required: [true, "A user must have a password confirm"],
+   
    
   },
 });
