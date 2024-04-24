@@ -28,6 +28,9 @@ import DeleteEmployeeAttendence from './assets/pages/EmployeeAttendence/DeleteEm
 import ReportEmployeeAttendence from './assets/pages/EmployeeAttendence/ReportEmployeeAttendence';
 import Login from './assets/pages/Login';
 
+import AddReturn from './assets/pages/return/AddReturn';
+
+
 
 
 
@@ -71,7 +74,7 @@ const App = () => {
         <Route path='/EmployeeAttendence/delete/:id' element={<DeleteEmployeeAttendence />}></Route>
         <Route path='/EmployeeAttendence/reportEmployeeAttendence' element={<ReportEmployeeAttendence />}></Route>
 
-        
+        <Route path='/addreturn' element={<AddReturn />}></Route>
 
       </Routes>
     </>

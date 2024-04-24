@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
+
 const Login = () => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
@@ -112,6 +113,8 @@ const Login = () => {
         {error && <div style={styles.error}>{error}</div>}
         <button type="submit" style={styles.button}>Login</button>
       </form>
+      <br/>
+      <button type="submit" style={styles.button}>Login</button>
     </div>
   );
 };
