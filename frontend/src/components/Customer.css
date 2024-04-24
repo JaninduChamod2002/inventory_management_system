@@ -1,0 +1,41 @@
+.label {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ea2323;
+    border-radius: 5px;
+  }
+  
+  .customer-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .customer-form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .customer-form input[type="text"],
+  .customer-form input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .customer-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .customer-form button:hover {
+    background-color: #0056b3;
+  }
+  

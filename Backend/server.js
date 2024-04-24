@@ -7,12 +7,13 @@ const cors = require("cors");
 const userRoute = require("./routes/userRoute");
 const categoryRoute = require("./routes/categoryRoute");
 const itemRoute = require("./routes/itemRoute");
+const CusRoute = require("./routes/customerRoute");
 
 const errorHandler = require("./middleware/errorMiddleware");
 
 const app = express();
 
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 8090;
 
 dotenv.config({ path: "./config.env" });
 
@@ -27,6 +28,7 @@ app.use(bodyParser.json());
 app.use("/api/users", userRoute);
 app.use("/api/category", categoryRoute);
 app.use("/api/items", itemRoute);
+app.use('/customer', CusRoute);
 
 // Routes
 app.get("/", (req, res) => {
