@@ -1,0 +1,128 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    
+    }
+    body{
+    
+    height: 10vh;
+    background-color: #e4e7e9;
+    
+    }
+    .container{
+      max-width: 550px;
+      padding: 70px;
+      margin: 0 28px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ffff;
+      box-shadow: 0 15px 20px rgb(26, 23, 23);
+    
+    
+    }
+    
+    
+    
+    
+    
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 50px;
+        height: 550px;
+      }
+      
+      /* Form styles */
+      form {
+        display: flex;
+        flex-direction: column;
+        
+       
+      }
+      
+      /* Label styles */
+      label {
+        margin-bottom: 0px;
+        padding: 5px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 7px 0;
+        
+        
+     
+      }
+      
+      /* Input styles */
+     
+    
+        input{
+          padding: 5px;
+          margin-top: 5px;
+          width: 55%;
+          box-sizing: border-box;
+          border-radius: 5px;
+          border: 2px  solid #ccc;
+          outline: none;
+          box-shadow: 0 3px 6px rgb(0,0,0,0.2);
+          
+    
+    
+    
+        }
+    
+        input:nth-child(2n){
+          justify-content: end;
+        }
+      
+      /* Button styles */
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+      
+      button[type="submit"] {
+        margin-top: 20px;
+       
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        border-radius: 5px;
+        transition: 0.4s;
+    
+      }
+      button[type="Add Customer"] {
+        margin-top: 10px;
+        display: block;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 470px;
+    
+        
+       
+        
+    
+        
+      }
+      
+      /* Button hover styles */
+      button:hover {
+        background-color: #090b0c;
+      }
+      
+      /* Responsive styles */
+      @media screen and (max-width: 600px) {
+        .container {
+          max-width: 100%;
+          padding: 10px;
+        }
+      }
+      

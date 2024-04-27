@@ -15,7 +15,9 @@ const app = express();
 
 const PORT = process.env.PORT || 8090;
 
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: "./.env" });
+
+const customerRoute = require("./routes/customerRoute.js")
 
 // Middleware
 
@@ -51,3 +53,5 @@ mongoose
   })
 
   .catch((err) => console.log(err));
+
+  app.use('/customer', customerRoute)

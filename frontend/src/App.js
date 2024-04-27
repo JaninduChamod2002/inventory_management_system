@@ -1,12 +1,16 @@
-import './App.css';
-import Customer from './components/Customer'; // Import the Customer component
+// import './App.css';
+import Customer from './components/Customer';
+//import Customer from './components/UpdateCustomer'; // Import the Customer component
 
 function App() {
   return (
     <div className="App">
-      <h1>Add New Customer</h1>
+      <br/>
+      
       <Customer /> {/* Render the Customer component */}
     </div>
+
+
   );
 }
 

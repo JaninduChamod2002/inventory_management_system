@@ -1,5 +1,5 @@
 .label {
-    max-width: 400px;
+    max-width: 40px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ea2323;
@@ -8,7 +8,7 @@
   
   .customer-form h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 200px;
   }
   
   .customer-form label {
@@ -28,14 +28,14 @@
   .customer-form button {
     width: 100%;
     padding: 10px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #1a1e21;
+    color: #796d6d;
     border: none;
     border-radius: 5px;
     cursor: pointer;
   }
   
   .customer-form button:hover {
-    background-color: #0056b3;
+    background-color: #24272b;
   }
   
