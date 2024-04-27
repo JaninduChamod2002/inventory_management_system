@@ -14,21 +14,25 @@ import { Route, Routes } from 'react-router-dom';
 
 
 
-import ShowEmployee from './assets/pages/Employee/ShowEmployee';
-import CreateEmployee from './assets/pages/Employee/CreateEmployee';
-import DeleteEmployee from './assets/pages/Employee/DeleteEmployee';
-import EditEmployee from './assets/pages/Employee/EditEmployee';
-import ReadOneEmployee from './assets/pages/Employee/ReadOneEmployee';
-import ReportEmployee from './assets/pages/Employee/ReportEmployee';
+// import ShowEmployee from './assets/pages/Employee/ShowEmployee';
+// import CreateEmployee from './assets/pages/Employee/CreateEmployee';
+// import DeleteEmployee from './assets/pages/Employee/DeleteEmployee';
+// import EditEmployee from './assets/pages/Employee/EditEmployee';
+// import ReadOneEmployee from './assets/pages/Employee/ReadOneEmployee';
+// import ReportEmployee from './assets/pages/Employee/ReportEmployee';
 
-import ShowEmployeeAttendence from './assets/pages/EmployeeAttendence/ShowEmployeeAttendence';
-import CreateEmployeeAttendence from './assets/pages/EmployeeAttendence/CreateEmployeeAttendence';
-import EditEmployeeAttendence from './assets/pages/EmployeeAttendence/EditEmployeeAttendence';
-import DeleteEmployeeAttendence from './assets/pages/EmployeeAttendence/DeleteEmployeeAttendence';
-import ReportEmployeeAttendence from './assets/pages/EmployeeAttendence/ReportEmployeeAttendence';
+// import ShowEmployeeAttendence from './assets/pages/EmployeeAttendence/ShowEmployeeAttendence';
+// import CreateEmployeeAttendence from './assets/pages/EmployeeAttendence/CreateEmployeeAttendence';
+// import EditEmployeeAttendence from './assets/pages/EmployeeAttendence/EditEmployeeAttendence';
+// import DeleteEmployeeAttendence from './assets/pages/EmployeeAttendence/DeleteEmployeeAttendence';
+// import ReportEmployeeAttendence from './assets/pages/EmployeeAttendence/ReportEmployeeAttendence';
 import Login from './assets/pages/Login';
 
-import AddReturn from './assets/pages/return/AddReturn';
+import AddReturn from './assets/pages/return/addReturn';
+import Showreturn from './assets/pages/return/ShowReturns';
+
+
+import { Sidebar } from './assets/pages/Sidebar';
 
 
 
@@ -59,7 +63,7 @@ const App = () => {
         {/* <Route path='/' element={<Home />}></Route> */}
         {/* <Route path='/Mlogin' element={<ManagerLogin />}></Route> */}
 
-
+{/* 
         <Route path='/employees/allEmployee' element={<ShowEmployee />}></Route>
         <Route path='/employees/create' element={<CreateEmployee />}></Route>
         <Route path='/employees/delete/:id' element={<DeleteEmployee />}></Route>
@@ -72,9 +76,11 @@ const App = () => {
         <Route path='/EmployeeAttendence/create' element={<CreateEmployeeAttendence />}></Route>
         <Route path='/EmployeeAttendence/edit/:id' element={<EditEmployeeAttendence />}></Route>
         <Route path='/EmployeeAttendence/delete/:id' element={<DeleteEmployeeAttendence />}></Route>
-        <Route path='/EmployeeAttendence/reportEmployeeAttendence' element={<ReportEmployeeAttendence />}></Route>
+        <Route path='/EmployeeAttendence/reportEmployeeAttendence' element={<ReportEmployeeAttendence />}></Route> */}
 
         <Route path='/addreturn' element={<AddReturn />}></Route>
+        <Route path='/showreturn' element={<Showreturn />}></Route>
+        <Route path='/sidebar' element={<Sidebar />}></Route>
 
       </Routes>
     </>

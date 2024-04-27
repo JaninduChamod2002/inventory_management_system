@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // You may need to install axios for handling API requests
 import "../../styles/returnStyle/Addreturn.css"; // Import the CSS file
+import "./Sidebar";
 
 function AddReturn() {
   const [returnID, setReturnID] = useState('');
@@ -46,7 +47,7 @@ function AddReturn() {
 
   return (
     <div className="form-container">
-      <h2>Add Return</h2>
+      <h2>Add Return Item</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Return ID:</label>
@@ -80,7 +81,9 @@ function AddReturn() {
           <label>Return Status:</label>
           <input type="text" value={returnStatus} onChange={(e) => setReturnStatus(e.target.value)} />
         </div>
-        <button type="submit">Submit</button>
+        <div className="form-group">
+  <button className="submit-button" type="submit">Submit</button>
+</div>
       </form>
     </div>
   );

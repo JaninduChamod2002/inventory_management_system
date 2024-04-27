@@ -19,10 +19,27 @@ const newReturnController = async (req, res) => {
         });
     }
 };
+const getAllReturns = async (req, res) => {
+    try {
+        const returnData = await ReturnModel.find();
+        res.status(200).json({
+            success: true,
+            message: "All purchase orders fetched successfully",
+            returnData
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
+            success: false,
+            message: "Error in fetching purchase orders",
+            error: error.message
+        });
+    }
+};
 
 const getOneReturn = async (req, res) => {
     try {
-        const returnData = await ReturnModel.findOne({ returnID: req.params.rid });
+        const returnData = await ReturnModel.findOne({ returnID: req.params.id });
 
         if (!returnData) {
             return res.status(404).send({
@@ -33,7 +50,9 @@ const getOneReturn = async (req, res) => {
 
         res.status(200).json({
             success: true,
-            data: returnData
+            message:"fgjjj",
+            returnData
+            
         });
     } catch (error) {
         console.log(error);
@@ -47,7 +66,13 @@ const getOneReturn = async (req, res) => {
 
 const deleteReturn = async (req, res) => {
     try {
-        await ReturnModel.findByIdAndDelete(req.params.objid);
+        const deletedReturn = await ReturnModel.findOneAndDelete({returnID: req.params.id});
+        if (!deletedReturn) {
+            return res.status(404).send({
+                success: false,
+                message: "Return not found"
+            });
+        }
         res.status(200).send({
             success: true,
             message: "Return deleted successfully"
@@ -62,9 +87,10 @@ const deleteReturn = async (req, res) => {
     }
 };
 
+
 const updateReturn = async (req, res) => {
     try {
-        const filter = { returnID: req.params.rid };
+        const filter = { returnID: req.params.id };
         const update = req.body;
 
         const updatedReturn = await ReturnModel.findOneAndUpdate(filter, update, { new: true });
@@ -91,4 +117,4 @@ const updateReturn = async (req, res) => {
     }
 };
 
-module.exports = { newReturnController, getOneReturn, deleteReturn, updateReturn };
+module.exports = { newReturnController, getAllReturns,getOneReturn, deleteReturn, updateReturn };

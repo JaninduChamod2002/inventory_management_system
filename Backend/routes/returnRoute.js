@@ -1,17 +1,15 @@
+
 const express = require("express");
 const returnController = require("../controllers/returnController");
 
+const {newReturnController,getAllReturns,getOneReturn,deleteReturn,updateReturn} = require("../controllers/returnController")
 const router = express.Router();
 
-router
-  .route("/")
-  .get(returnController.getAllReturns)
-  .post(returnController.newReturnController);
+router.post("/add", newReturnController);
+router.get("/",getAllReturns);
+router.get("/get/:id",getOneReturn);
+router.delete("delete/:id",deleteReturn);
+router.put("/update/:id",updateReturn);
 
-router
-  .route("/:id")
-  .get(returnController.getOneReturn)
-  .patch(returnController.updateReturn)
-  .delete(returnController.deleteReturn);
 
 module.exports = router;
