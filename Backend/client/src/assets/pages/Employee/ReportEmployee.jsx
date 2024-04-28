@@ -11,20 +11,6 @@ const ReportEmployee = React.forwardRef((props, ref) => {
     const [searchQuery, setSearchQuery] = useState("");
     const componentRef = useRef();
 
-    const handleSearch = async () => {
-        setLoading(true);
-        try {
-            const response = await axios.get(`http://localhost:8090/searchEmployee?search=${searchQuery}`);
-            setEmployees(response.data.data);
-            setLoading(false);
-            setError(null);
-        } catch (error) {
-            console.error("Error fetching employee:", error);
-            setError("An error occurred while fetching the employee for the search query.");
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
         setLoading(true);
         axios
@@ -38,6 +24,20 @@ const ReportEmployee = React.forwardRef((props, ref) => {
                 setLoading(false);
             });
     }, []);
+
+    const handleSearch = async () => {
+        setLoading(true);
+        try {
+            const response = await axios.get(`http://localhost:8090/searchEmployee?search=${searchQuery}`);
+            setEmployees(response.data.data);
+            setLoading(false);
+            setError(null);
+        } catch (error) {
+            console.error("Error fetching employee:", error);
+            setError("An error occurred while fetching the employee for the search query.");
+            setLoading(false);
+        }
+    };
 
     const generatePDF = useReactToPrint({
         content: () => componentRef.current,
@@ -55,61 +55,103 @@ const ReportEmployee = React.forwardRef((props, ref) => {
     const filteredEmployee = employees.filter(applySearchFilter);
 
     return (
-        <div ref={ref}>
-            <div className="p-4">
-                <BackButton destination='/employees/allEmployee' />
-                <div className="flex justify-between items-center">
-                    <h1 className="text-3xl my-8">Employee List</h1>
-                    <div className="mb-4">
-                        <input
-                            type="text"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            placeholder="Enter search query"
-                            className="mr-2 border border-gray-400 p-2"
-                        />
-                        <button
-                            onClick={handleSearch}
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        >
-                            Search
+        <div ref={ref} className="report-container">
+            <style>
+                {`
+                .report-container {
+                    max-width: 960px;
+                    margin: auto;
+                    padding: 20px;
+                    background-color: #fff;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                }
+                .report-container h1, .report-container table {
+                    margin-bottom: 20px;
+                }
+                .search-bar {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 20px;
+                }
+                .search-bar input {
+                    padding: 10px;
+                    width: 300px;
+                    border-radius: 5px;
+                    border: 1px solid #ccc;
+                }
+                .search-bar button {
+                    background-color: #0056b3;
+                    color: white;
+                    border: none;
+                    padding: 10px 20px;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+                .search-bar button:hover {
+                    background-color: #004494;
+                }
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                th, td {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                    text-align: left;
+                }
+                th {
+                    background-color: #f4f4f4;
+                }
+                `}
+            </style>
+            <BackButton destination='/employees/allEmployee' />
+            <div className="search-bar">
+                <h1 className="text-3xl">Employee List</h1>
+                <div>
+                    <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Enter search query"
+                    />
+                    <button onClick={handleSearch}>
+                        Search
+                    </button>
+                </div>
+            </div>
+            {loading ? (
+                <Spinner />
+            ) : (
+                <>
+                    <table ref={componentRef}>
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>EmpID</th>
+                                <th>Employee Name</th>
+                                <th>Role</th>
+                                <th>Phone</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredEmployee.map((employee, index) => (
+                                <tr key={employee._id}>
+                                    <td>{index + 1}</td>
+                                    <td>{employee.EmpID}</td>
+                                    <td>{employee.employeeName}</td>
+                                    <td>{employee.role}</td>
+                                    <td>{employee.phone}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                    <div className="flex justify-center items-center mt-8">
+                        <button onClick={generatePDF}>
+                            Generate PDF
                         </button>
                     </div>
-                </div>
-                {loading ? (
-                    <Spinner />
-                ) : (
-                    <>
-                        <table className="w-full border-separate border-spacing-2" ref={componentRef}>
-                            <thead>
-                                <tr>
-                                    <th className="border border-slate-600 rounded-md">No</th>
-                                    <th className="border border-slate-600 rounded-md">EmpID</th>
-                                    <th className="border border-slate-600 rounded-md">employeeName</th>
-                                    <th className="border border-slate-600 rounded-md max-md:hidden">role</th>
-                                    <th className="border border-slate-600 rounded-md max-md:hidden">phone</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredEmployee.map((employee, index) => (
-                                    <tr key={employee._id} className="h-8">
-                                        <td className="border border-slate-700 rounded-md text-center">{index + 1}</td>
-                                        <td className="border border-slate-700 rounded-md text-center">{employee.EmpID}</td>
-                                        <td className="border border-slate-700 rounded-md text-center max-md:hidden">{employee.employeeName}</td>
-                                        <td className="border border-slate-700 rounded-md text-center max-md:hidden">{employee.role}</td>
-                                        <td className="border border-slate-700 rounded-md text-center max-md:hidden">{employee.phone}</td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                        <div className="flex justify-center items-center mt-8">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={generatePDF}>
-                                Generate PDF
-                            </button>
-                        </div>
-                    </>
-                )}
-            </div>
+                </>
+            )}
         </div>
     );
 });

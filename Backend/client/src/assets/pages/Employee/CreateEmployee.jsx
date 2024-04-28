@@ -3,7 +3,7 @@ import axios from 'axios';
 import BackButton from '../../components/BackButton';
 import Spinner from '../../components/Spinner';
 import { useNavigate } from 'react-router-dom';
-import { Sidebar } from '../Sidebar';
+// import { Sidebar } from '../Sidebar';
 
 const CreateEmployee = () => {
   const [EmpID, setEmpID] = useState('');
@@ -15,6 +15,14 @@ const CreateEmployee = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    // Regex to allow only letters and spaces
+    if (/^[a-zA-Z\s]*$/.test(value)) {
+      setEmployeeName(value);
+    }
+  }
   const handleSaveEmployee = () => {
     const data = {
       EmpID,
@@ -26,7 +34,7 @@ const CreateEmployee = () => {
     };
     setLoading(true);
     axios
-      .post('http://localhost:8090/employees', data)
+      .post('http://localhost:8090/employees/', data)
       .then(() => {
         setLoading(false);
         navigate('/employees/allEmployee');
@@ -93,7 +101,7 @@ const CreateEmployee = () => {
 
   return (
     <div>
-     
+
       <div style={styles.container}>
         <BackButton destination='/employees/allEmployee' />
         <h1 style={{ fontSize: '2rem', marginBottom: '2rem' }}>Create Employee</h1>
@@ -113,8 +121,9 @@ const CreateEmployee = () => {
             <input
               type='text'
               value={employeeName}
-              onChange={(e) => setEmployeeName(e.target.value)}
+              onChange={handleNameChange}
               style={styles.input}
+              placeholder="Enter employee's name"
             />
           </div>
           <div style={{ marginBottom: '1.5rem' }}>
@@ -124,6 +133,7 @@ const CreateEmployee = () => {
               value={phone}
               onChange={(e) => setContactNo(e.target.value)}
               style={styles.input}
+              maxLength={10}
             />
           </div>
           <div style={{ marginBottom: '1.5rem' }}>
@@ -171,4 +181,4 @@ const CreateEmployee = () => {
   );
 }
 
-export default CreateEmployee;
+export default CreateEmployee
