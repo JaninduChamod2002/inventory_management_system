@@ -23,24 +23,23 @@ const returnSchema = new mongoose.Schema({
         required : [true, "Reason for Retuen is Required!"],
     },
 
-    customerDetails :[{
-        name : {
-            type : String,
-            required : [true, "Customer Name Reqired"],
-        },
-        cAddress :{
-            type : String,
-            required : [true, "Customer Address is Reqired"],
-        },
-        phoneNO : {
-            type : Number,
-            required : [true, "Customer Phone NO. is Reqired"],
-        },
-    }],
-
-    rStatus :{
+    cusName:{
         type : String,
-        required : [true, "Return Status is Reqired"],
+        required : [true, "Customer Name Reqired"],
+    },
+
+    cAddress:{
+        type : String,
+        required : [true, "Customer Address is Reqired"],
+    },
+    phoneNO : {
+        type : Number,
+        required : [true, "Customer Phone NO. is Reqired"],
+    },
+
+    rStatus: {
+        type: String,
+        default: null
     }
 });
 

@@ -88,7 +88,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors({
-  origin: ["http://localhost:9000", "https://inventory-management-system.vercel.app"],
+  origin: ["http://localhost:8090", "https://inventory-management-system.vercel.app"],
   credentials: true,
 }));
 

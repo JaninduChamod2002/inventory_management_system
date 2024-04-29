@@ -26,13 +26,14 @@ import { Route, Routes } from 'react-router-dom';
 // import EditEmployeeAttendence from './assets/pages/EmployeeAttendence/EditEmployeeAttendence';
 // import DeleteEmployeeAttendence from './assets/pages/EmployeeAttendence/DeleteEmployeeAttendence';
 // import ReportEmployeeAttendence from './assets/pages/EmployeeAttendence/ReportEmployeeAttendence';
-import Login from './assets/pages/Login';
+// import Login from './assets/pages/Login';
 
-import AddReturn from './assets/pages/return/addReturn';
+import AddReturn from './assets/pages/return/AddReturn';
 import Showreturn from './assets/pages/return/ShowReturns';
 
 
 import { Sidebar } from './assets/pages/Sidebar';
+import UpdateReturn from './assets/pages/return/UpdateReturn'
 
 
 
@@ -81,6 +82,7 @@ const App = () => {
         <Route path='/addreturn' element={<AddReturn />}></Route>
         <Route path='/showreturn' element={<Showreturn />}></Route>
         <Route path='/sidebar' element={<Sidebar />}></Route>
+        <Route path='/update/:id' element={<UpdateReturn />} />
 
       </Routes>
     </>

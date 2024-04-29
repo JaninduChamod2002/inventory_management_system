@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/add", newReturnController);
 router.get("/",getAllReturns);
 router.get("/get/:id",getOneReturn);
-router.delete("delete/:id",deleteReturn);
+router.delete("/delete/:id",deleteReturn);
 router.put("/update/:id",updateReturn);
 
 

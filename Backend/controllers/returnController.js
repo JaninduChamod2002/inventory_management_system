@@ -1,4 +1,5 @@
-const ReturnModel = require('../models/returnModel');
+const Return = require("../models/returnModel"); // Make sure to adjust the path as needed
+
 
 const newReturnController = async (req, res) => {
     try {
@@ -24,7 +25,7 @@ const getAllReturns = async (req, res) => {
         const returnData = await ReturnModel.find();
         res.status(200).json({
             success: true,
-            message: "All purchase orders fetched successfully",
+            message: "All returns fetched successfully",
             returnData
         });
     } catch (error) {
@@ -66,7 +67,7 @@ const getOneReturn = async (req, res) => {
 
 const deleteReturn = async (req, res) => {
     try {
-        const deletedReturn = await ReturnModel.findOneAndDelete({returnID: req.params.id});
+        const deletedReturn = await Return.findOneAndDelete({returnID: req.params.id});
         if (!deletedReturn) {
             return res.status(404).send({
                 success: false,
@@ -118,3 +119,4 @@ const updateReturn = async (req, res) => {
 };
 
 module.exports = { newReturnController, getAllReturns,getOneReturn, deleteReturn, updateReturn };
+//
