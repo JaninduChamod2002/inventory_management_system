@@ -7,15 +7,22 @@ const purchaseSchema = new mongoose.Schema({
         unique: true,
         required: [true, "Order ID is required"],
     },
-    orderDate: {
-        type: Date,
-        default: Date.now(),
-    },
+
     supplier: {
         type: String,
         required: true,
     },
 
+    orderDate: {
+        type: Date,
+        default: Date.now(),
+    },
+
+    requiredDate:{
+        type:Date,
+        required:true,
+    },
+    
     Items: [{
         name: {
             type: String,
@@ -32,16 +39,6 @@ const purchaseSchema = new mongoose.Schema({
         },
         
     }],
-    totalAmount: {
-        type: Number,
-        required: [true, "Total amount is required"],
-    },
-    status: {
-        type: String,
-        default: "pending",
-        required: [true, "Order status is required"],
-        enum: ["paid", "pending"]
-    }
 });
 
 const Purchase = mongoose.model("Purchase", purchaseSchema);
