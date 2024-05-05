@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { useReactToPrint } from 'react-to-print';
-import Spinner from '../../../components/Spinner';
-import BackButton from '../../../components/BackButton';
+import Spinner from '../../components/Spinner';
+import BackButton from '../../components/BackButton';
 
 const ReportReturn = React.forwardRef((props, ref) => {
   const [returns, setReturns] = useState([]);
