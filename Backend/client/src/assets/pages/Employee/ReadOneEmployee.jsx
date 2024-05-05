@@ -12,7 +12,7 @@ const ReadOneEmployee = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:8090/employees/${id}`)
+      .get(`http://localhost:8076/employees/${id}`)
       .then((response) => {
         setEmployee(response.data);
         setLoading(false);
@@ -21,38 +21,50 @@ const ReadOneEmployee = () => {
         console.log(error);
         setLoading(false);
       });
-  }, [id]);
+  }, []);
 
   return (
-    <div style={{ padding: '16px', margin: '0 auto' }}>
-      <BackButton destination='/employees/allEmployee' />
-      <h1 className='text-3xl font-semibold my-4'>Employee Details</h1>
+    <div className='p-4'>
+      <BackButton destination='/employees/allEmployee' /> 
+      <h1 className='text-3xl my-4'>Show Employee</h1>
       {loading ? (
         <Spinner />
       ) : (
-        <div className='bg-white shadow-md rounded-lg p-6'>
-          <form style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <span style={{ fontWeight: '600', marginRight: '8px' }}>EmpID:</span>
-              <span>{employee.EmpID}</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <span style={{ fontWeight: '600', marginRight: '8px' }}>Employee Name:</span>
-              <span>{employee.employeeName}</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <span style={{ fontWeight: '600', marginRight: '8px' }}>Role:</span>
-              <span>{employee.role}</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <span style={{ fontWeight: '600', marginRight: '8px' }}>Phone:</span>
-              <span>{employee.phone}</span>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <span style={{ fontWeight: '600', marginRight: '8px' }}>Password:</span>
-              <span>{employee.password}</span>
-            </div>
-          </form>
+        <div className='flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4'>
+          <div className='my-4'>
+            <span className='text-xl mr-4 text-gray-500'>EmpID</span>
+            <span>{employee.EmpID}</span>
+          </div>
+          <div className='my-4'>
+            <span className='text-xl mr-4 text-gray-500'>employeeName</span>
+            <span>{employee.employeeName}</span>
+          </div>
+          <div className='my-4'>
+            <span className='text-xl mr-4 text-gray-500'>DOB</span>
+            <span>{employee.DOB}</span>
+          </div>
+          <div className='my-4'>
+            <span className='text-xl mr-4 text-gray-500'>NIC</span>
+            <span>{employee.NIC}</span>
+          </div>
+          <div className='my-4'>
+            <span className='text-xl mr-4 text-gray-500'>Address</span>
+            <span>{employee.Address}</span>
+          </div>
+          <div className='my-4'>
+            <span className='text-xl mr-4 text-gray-500'>Position</span>
+            <span>{employee.Position}</span>
+          </div>
+          <div className='my-4'>
+            <span className='text-xl mr-4 text-gray-500'>ContactNo</span>
+            <span>{employee.ContactNo}</span>
+          </div>
+          <div className='my-4'>
+            <span className='text-xl mr-4 text-gray-500'>Email</span>
+            <span>{employee.Email}</span>
+          </div>
+          
+          
         </div>
       )}
     </div>

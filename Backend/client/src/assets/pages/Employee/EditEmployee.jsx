@@ -1,138 +1,154 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import BackButton from '../../components/BackButton';
 import Spinner from '../../components/Spinner';
+import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+//import { useSnackbar } from 'notistack';
 
 const EditEmployee = () => {
   const [EmpID, setEmpID] = useState('');
   const [employeeName, setemployeeName] = useState('');
-  const [role, setRole] = useState('');
-  const [phone, setContactNo] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [DOB, setDOB] = useState('');
+  const [NIC, setNIC] = useState('');
+  const [Address, setAddress] = useState('');
+  const [Position, setPosition] = useState('');
+  const [ContactNo, setContactNo] = useState('');
+  const [Email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { id } = useParams();
+  const {id} = useParams();
+  //const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:8090/employees/${id}`)
-      .then((response) => {
-        const { EmpID, employeeName, role, phone, password, passwordConfirm } = response.data;
-        setEmpID(EmpID);
-        setemployeeName(employeeName);
-        setRole(role);
-        setContactNo(phone);
-        setPassword(password);
-        setPasswordConfirm(passwordConfirm);
+    axios.get(`http://localhost:8076/employees/${id}`)
+    .then((response) => {
+        setEmpID(response.data.EmpID);
+        setemployeeName(response.data.employeeName)
+        setDOB(response.data.DOB)
+        setNIC(response.data.NIC);
+        setAddress(response.data.Address)
+        setPosition(response.data.Position)
+        setContactNo(response.data.ContactNo)
+        setEmail(response.data.Email)
         setLoading(false);
-      })
-      .catch((error) => {
+      }).catch((error) => {
         setLoading(false);
-        alert('An error occurred. Please check the console.');
-        console.error(error);
+         console.log(error);
       });
-  }, [id]);
-
+  }, [])
+  
   const handleEditEmployee = () => {
-    setLoading(true);
     const data = {
       EmpID,
       employeeName,
-      role,
-      phone,
-      password,
-      passwordConfirm
+      DOB,
+      NIC,
+      Address,
+      Position,
+      ContactNo,
+      Email
     };
+    setLoading(true);
     axios
-      .put(`http://localhost:8090/employees/${id}`, data)
+      .put(`http://localhost:8076/employees/${id}`, data)
       .then(() => {
         setLoading(false);
+        //enqueueSnackbar('Employee Edited successfully', { variant: 'success' });
         navigate('/employees/allEmployee');
       })
       .catch((error) => {
         setLoading(false);
-        alert('An error occurred. Please check the console.');
-        console.error(error);
+        // alert('An error happened. Please Chack console');
+        //enqueueSnackbar('Error', { variant: 'error' });
+        console.log(error);
       });
   };
 
-  const styles = {
-    container: {
-      padding: '2rem',
-      textAlign: 'center',
-      fontFamily: 'Arial, sans-serif',
-      color: '#fff',
-      backgroundColor: '#1a1a1a'
-    },
-    formContainer: {
-      border: '1px solid #333',
-      borderRadius: '10px',
-      maxWidth: '600px',
-      margin: 'auto',
-      padding: '2rem',
-      backgroundColor: '#333',
-      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
-    },
-    input: {
-      border: '1px solid #555',
-      padding: '10px',
-      width: '100%',
-      borderRadius: '5px',
-      fontSize: '16px',
-      color: '#fff',
-      backgroundColor: '#222',
-      outline: 'none'
-    },
-    label: {
-      fontSize: '1.2rem',
-      marginRight: '1rem',
-      color: '#ccc'
-    },
-    button: {
-      padding: '10px 20px',
-      backgroundColor: '#007bff',
-      color: '#fff',
-      border: 'none',
-      borderRadius: '5px',
-      cursor: 'pointer',
-      fontSize: '18px',
-      fontWeight: 'bold',
-      textTransform: 'uppercase',
-      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-      marginTop: '20px'
-    }
-  };
-
   return (
-    <div style={styles.container}>
-      <BackButton destination='/employees/allEmployee' />
-      <h1 style={{ fontSize: '2rem', marginBottom: '20px' }}>Edit Employee</h1>
-      {loading ? <Spinner /> : null}
-      <div style={styles.formContainer}>
-        {[
-          { label: 'EmpID', value: EmpID, onChange: setEmpID },
-          { label: 'Employee Name', value: employeeName, onChange: setemployeeName },
-          { label: 'Role', value: role, onChange: setRole },
-          { label: 'Phone', value: phone, onChange: setContactNo },
-          { label: 'Password', value: password, onChange: setPassword },
-          { label: 'Confirm Password', value: passwordConfirm, onChange: setPasswordConfirm }
-        ].map((field, index) => (
-          <div key={index} style={{ marginBottom: '1.5rem' }}>
-            <label style={styles.label}>{field.label}</label>
-            <input
-              type={field.label.includes('Password') ? 'password' : 'text'}
-              value={field.value}
-              onChange={(e) => field.onChange(e.target.value)}
-              style={styles.input}
-            />
-          </div>
-        ))}
-        <button style={styles.button} onClick={handleEditEmployee}>Save</button>
+    <div className='p-4'>
+      <BackButton destination='/employees/allEmployee' /> 
+      <h1 className='text-3xl my-4'>Edit Employee</h1>
+      {loading ? <Spinner /> : ''}
+      <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto'>
+      <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>EmpID</label>
+          <input
+            type='text'
+            value={EmpID}
+            onChange={(e) => setEmpID(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2 w-full'
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>employeeName</label>
+          <input
+            type='text'
+            value={employeeName}
+            onChange={(e) => setemployeeName(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2  w-full '
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>DOB</label>
+          <input
+            type='text'
+            value={DOB}
+            onChange={(e) => setDOB(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2  w-full '
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>NIC</label>
+          <input
+            type='text'
+            value={NIC}
+            onChange={(e) => setNIC(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2  w-full '
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>Address</label>
+          <input
+            type='text'
+            value={Address}
+            onChange={(e) => setAddress(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2  w-full '
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>Position</label>
+          <input
+            type='text'
+            value={Position}
+            onChange={(e) => setPosition(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2  w-full '
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>ContactNo</label>
+          <input
+            type='text'
+            value={ContactNo}
+            onChange={(e) => setContactNo(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2  w-full '
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>Email</label>
+          <input
+            type='text'
+            value={Email}
+            onChange={(e) => setEmail(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2  w-full '
+          />
+        </div>
+        <button className='p-2 bg-sky-300 m-8' onClick={handleEditEmployee}>
+          Save
+        </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default EditEmployee;
+export default EditEmployee
