@@ -11,7 +11,7 @@ import { PORT, mongoDBURL } from './config.js';
 
 
 
-import Employee_Route from './Routes/Employee_Route.js';
+
 import Return_Route from './Routes/Return_Route.js'
 
 
@@ -54,7 +54,7 @@ app.use(cors());
 
 
 
-app.use('/employees',Employee_Route);
+
 app.use('/returns',Return_Route);
 
 
