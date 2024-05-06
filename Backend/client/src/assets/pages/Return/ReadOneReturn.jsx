@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom';
 import BackButton from '../../components/BackButton';
 import Spinner from '../../components/Spinner';
 
+//check new
+
 const ReadOneReturn = () => {
   const [returnData, setReturnData] = useState({});
   const [loading, setLoading] = useState(false);
@@ -32,35 +34,35 @@ const ReadOneReturn = () => {
       ) : (
         <div className='flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4'>
           <div className='my-4'>
-            <span className='text-xl mr-4 text-gray-500'>Return ID</span>
+            <span className='text-xl mr-4 text-gray-500'>Return ID :</span>
             <span>{returnData.returnID}</span>
           </div>
           <div className='my-4'>
-            <span className='text-xl mr-4 text-gray-500'>Return Date</span>
+            <span className='text-xl mr-4 text-gray-500'>Return Date :</span>
             <span>{returnData.returnDate}</span>
           </div>
           <div className='my-4'>
-            <span className='text-xl mr-4 text-gray-500'>Return Item Name</span>
+            <span className='text-xl mr-4 text-gray-500'>Return Item Name :</span>
             <span>{returnData.returnItemN}</span>
           </div>
           <div className='my-4'>
-            <span className='text-xl mr-4 text-gray-500'>Reason</span>
+            <span className='text-xl mr-4 text-gray-500'>Reason :</span>
             <span>{returnData.reason}</span>
           </div>
           <div className='my-4'>
-            <span className='text-xl mr-4 text-gray-500'>Customer Name</span>
+            <span className='text-xl mr-4 text-gray-500'>Customer Name :</span>
             <span>{returnData.cusName}</span>
           </div>
           <div className='my-4'>
-            <span className='text-xl mr-4 text-gray-500'>Customer Address</span>
+            <span className='text-xl mr-4 text-gray-500'>Customer Address :</span>
             <span>{returnData.cAddress}</span>
           </div>
           <div className='my-4'>
-            <span className='text-xl mr-4 text-gray-500'>Phone Number</span>
+            <span className='text-xl mr-4 text-gray-500'>Phone Number :</span>
             <span>{returnData.phoneNO}</span>
           </div>
           <div className='my-4'>
-            <span className='text-xl mr-4 text-gray-500'>Return Status</span>
+            <span className='text-xl mr-4 text-gray-500'>Return Status :</span>
             <span>{returnData.rStatus}</span>
           </div>
         </div>
