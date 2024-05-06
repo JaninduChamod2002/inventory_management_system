@@ -1,6 +1,8 @@
 import express from 'express';
 import { Customer } from '../Models/Customer.js';
 
+//new route
+
 const router = express.Router();
 
 // Route for saving a new customer
