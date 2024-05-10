@@ -1,61 +1,38 @@
-const dotenv = require("dotenv");
 const express = require("express");
-const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
 const cors = require("cors");
-
-const userRoute = require("./routes/userRoute");
-const categoryRoute = require("./routes/categoryRoute");
-const itemRoute = require("./routes/itemRoute");
-const purchaseRoute = require("./routes/purchaseRoute");
-const purchaseStatusRoute = require("./routes/purchaseStatusRoute");
-
-const errorHandler = require("./middleware/errorMiddleware");
-const posRoute = require("./routes/posRoute");
-
-const app = express();
+const bodyParser=require("body-parser");
+const mongoose = require('mongoose');
+const dotenv=require("dotenv");
+const app=express();
+require('dotenv').config();
 
 const PORT = process.env.PORT || 8090;
 
-dotenv.config({ path: "./config.env" });
-
-// Middleware
-
-app.use(express.json());
-
-app.use(express.urlencoded({ extended: false }));
+app.use(cors());
 app.use(bodyParser.json());
 
-// Routes middlewares
+const URL = process.env.MONGODB_URL;
 
-app.use("/", userRoute);
-app.use("/", posRoute);
+mongoose.connect(process.env.MONGODB_URL|| URL);
 
-app.use("/api/users", userRoute);
-app.use("/api/category", categoryRoute);
-app.use("/api/items", itemRoute);
-app.use("/api/order",purchaseRoute);
+
+const connection= mongoose.connection;
+connection.once('open', () => {
+         console.log("Mongodb connection successfully !!");
+})
+
+const purchaseStatusRoute = require("./routes/purchaseStatusRoute");
 app.use("/api/orderStatus",purchaseStatusRoute);
+const purchaseRoute = require("./routes/purchaseRoute");
+app.use("/api/order",purchaseRoute);
 
-
-// Routes
-app.get("/", (req, res) => {
-  res.send("Home Page");
+app.listen(PORT, () => {
+console.log(`Server is running on port: ${PORT}`);
 });
-// error middleware
-
-app.use(errorHandler);
-
-// connect to DB and start server
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => {
-    console.log("DB Connection Successful!");
-  })
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
-  })
-
-  .catch((err) => console.log(err));
+app.use(bodyParser.json(), (err, req, res, next) => {
+    if (err instanceof SyntaxError) {
+        res.status(400).json({ message: "Invalid JSON syntax" });
+    } else {
+        next();
+    }
+});

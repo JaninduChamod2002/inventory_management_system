@@ -3,7 +3,19 @@ const Purchase = require('../models/purchaseModel');
 
 const newPurchaseController = async (req, res) => {
     try {
-        const order = new Purchase(req.body);
+        // Get the count of existing purchase orders
+        const count = await Purchase.countDocuments();
+        
+        // Generate new orderID in the format ORDXXX
+        const newOrderID = `ORD${('000' + (count + 1)).slice(-3)}`;
+
+        // Create new purchase order object
+        const order = new Purchase({
+            orderID: newOrderID,
+            ...req.body
+        });
+
+        // Save the new purchase order to the database
         await order.save();
 
         return res.status(201).send({
@@ -20,6 +32,7 @@ const newPurchaseController = async (req, res) => {
         });
     }
 };
+
 
 const getAllPurchases = async (req, res) => {
     try {
@@ -113,6 +126,3 @@ const updatePurchase = async (req, res) => {
 
 
 module.exports = { newPurchaseController, getAllPurchases, getOnePurchase, deletePurchase, updatePurchase };
-
-
-
