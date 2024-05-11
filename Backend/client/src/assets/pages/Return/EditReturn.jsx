@@ -20,7 +20,7 @@ const EditReturn = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:8076/returns/${id}`)
+    axios.get(`http://localhost:8090/returns/${id}`)
       .then((response) => {
         const { returnID, returnDate, returnItemN, reason, cusName, cAddress, phoneNO, rStatus } = response.data;
         setReturnID(returnID);
