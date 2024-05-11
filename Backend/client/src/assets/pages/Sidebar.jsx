@@ -9,9 +9,9 @@ import {
   BiCalendarEvent,
   BiTrain,
 } from "react-icons/bi";
-import { PiChalkboardTeacher } from "react-icons/pi";
-import { NavLink } from "react-router-dom"; // Import NavLink from React Router
-import "../styles/sidebar.css";
+// import { PiChalkboardTeacher } from "react-icons/pi";
+// import { NavLink } from "react-router-dom"; // Import NavLink from React Router
+// import "../styles/sidebar.css";
 
 
 export const Sidebar = () => {
@@ -40,7 +40,7 @@ export const Sidebar = () => {
           <BiHotel className="icon" />
           Sales Management
         </NavLink>
-        <NavLink to="/admin/vehicle" activeClassName="active" className="item">
+        <NavLink to="/customers/allCustomers" activeClassName="active" className="item">
           <BiCar className="icon" />
           Customer Management
         </NavLink>
@@ -52,7 +52,7 @@ export const Sidebar = () => {
           <BiRestaurant className="icon" />
           Purchase Management
         </NavLink>
-        <NavLink to="/admin/guid" activeClassName="active" className="item">
+        <NavLink to="/returns/allReturns" activeClassName="active" className="item">
           <PiChalkboardTeacher className="icon" />
           Return Management
         </NavLink>

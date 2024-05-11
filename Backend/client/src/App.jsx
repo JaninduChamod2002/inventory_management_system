@@ -7,10 +7,20 @@ import viteLogo from '/vite.svg' ;
 import React from 'react' ;
 import { Route, Routes } from 'react-router-dom';
 
+import Headeremp from './assets/pages/Employee/Headeremp'
+
 //import Home from './assets/pages/Home';
 //import ReadOneHome from './assets/pages/ReadOneHome';
 
 
+import Headerpurch from './assets/pages/PurchaseManagement/Header';
+import AddOrder from './assets/pages/PurchaseManagement/AddOrder';
+import OredrStatus from './assets/pages/PurchaseManagement/Orderstatus';
+import AllOrder from './assets/pages/PurchaseManagement/AllOrder';
+import UpdateStatus from './assets/pages/PurchaseManagement/UpdateStatus';
+import UpdateOrder from './assets/pages/PurchaseManagement/UpdateOrder';
+import PurchaseReport from './assets/pages/PurchaseManagement/PurchaseReport';
+import PurchaseMailer from './assets/pages/PurchaseManagement/PurchaseMailer';
 
 
 
@@ -27,6 +37,26 @@ import EditEmployeeAttendence from './assets/pages/EmployeeAttendence/EditEmploy
 import DeleteEmployeeAttendence from './assets/pages/EmployeeAttendence/DeleteEmployeeAttendence';
 import ReportEmployeeAttendence from './assets/pages/EmployeeAttendence/ReportEmployeeAttendence';
 import Login from './assets/pages/Login';
+
+import Header from './assets/pages/Return/Header';
+
+
+import CreateReturn from './assets/pages/Return/CreateReturn';
+import DeleteReturn from './assets/pages/Return/DeleteReturn';
+import EditReturn from './assets/pages/Return/EditReturn';
+import ReadOneReturn from './assets/pages/Return/ReadOneReturn';
+import ReportReturn from './assets/pages/Return/ReportReturn';
+import ShowReturn from './assets/pages/Return/ShowReturn';
+
+
+
+import CreateCustomer from './assets/pages/Customer/CreateCustomer';
+import ShowCustomer from './assets/pages/Customer/ShowCustomer';
+import EditCustomer from './assets/pages/Customer/EditCustomer';
+import DeleteCustomer from './assets/pages/Customer/DeleteCustomer';
+import ReadOneCustomer from './assets/pages/Customer/ReadOneCustomer';
+import ReportCustomer from './assets/pages/Customer/ReportCustomer';
+
 
 
 
@@ -51,12 +81,12 @@ const App = () => {
     <>
     
       {/* <Header /> */}
+      
       <Routes>
 
-        {/* <Route path='/' element={<Home />}></Route> */}
-        {/* <Route path='/Mlogin' element={<ManagerLogin />}></Route> */}
 
-
+      
+        
         <Route path='/employees/allEmployee' element={<ShowEmployee />}></Route>
         <Route path='/employees/create' element={<CreateEmployee />}></Route>
         <Route path='/employees/delete/:id' element={<DeleteEmployee />}></Route>
@@ -71,7 +101,37 @@ const App = () => {
         <Route path='/EmployeeAttendence/delete/:id' element={<DeleteEmployeeAttendence />}></Route>
         <Route path='/EmployeeAttendence/reportEmployeeAttendence' element={<ReportEmployeeAttendence />}></Route>
 
+
+       
+      
+
+        <Route path='/returns/create' element={<CreateReturn />}></Route>
+        <Route path='/returns/delete/:id' element={<DeleteReturn />}></Route>
+        <Route path='/returns/edit/:id' element={<EditReturn />}></Route>
+        <Route path='/returns/details/:id' element={<ReadOneReturn />}></Route>
+        <Route path='/returns/reportReturn' element={<ReportReturn />}></Route>
+        <Route path='/returns/allReturns' element={<ShowReturn />}></Route>
+
         
+        <Route path='/customers/allCustomers' element={<ShowCustomer />}></Route>
+        <Route path='/customers/create' element={<CreateCustomer />}></Route>
+        <Route path='/customers/edit/:id' element={<EditCustomer />}></Route>
+        <Route path='/customers/delete/:id' element={<DeleteCustomer />}></Route>
+        <Route path='/customers/details/:id' element={<ReadOneCustomer />}></Route>
+        <Route path='/customers/reportCustomer' element={<ReportCustomer />}></Route>
+
+        <Route path="/add" element={<AddOrder />} />
+        <Route path="/status" element={<OredrStatus />} />
+        <Route path="/allOrder" element={<AllOrder />} />
+        <Route path="/report" element={<PurchaseReport />} />
+        <Route path="/email" element={<PurchaseMailer />} />
+        <Route path="/update/:orderID" element={<UpdateStatus />} />
+        <Route path="/change/:orderID" element={<UpdateOrder />} />
+
+
+       
+
+       
 
       </Routes>
     </>
