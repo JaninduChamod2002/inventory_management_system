@@ -15,7 +15,7 @@ function ShowReturn() {
         setLoading(true);
         try {
             const response = await axios.get(
-                `http://localhost:8076/searchReturn?search=${searchQuery}`
+                `http://localhost:8090/searchReturn?search=${searchQuery}`
             );
             setReturns(response.data.data);
             setLoading(false);
@@ -28,7 +28,7 @@ function ShowReturn() {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:8076/returns')
+            .get('http://localhost:8090/returns')
             .then((response) => {
                 setReturns(response.data.data);
                 setLoading(false);

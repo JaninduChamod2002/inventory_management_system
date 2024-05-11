@@ -12,7 +12,7 @@ const DeleteReturn = () => {
   const handleDeleteReturn = () => {
     setLoading(true);
     axios
-      .delete(`http://localhost:8076/returns/${id}`)
+      .delete(`http://localhost:8090/returns/${id}`)
       .then(() => {
         setLoading(false);
         navigate('/returns/allReturns');
